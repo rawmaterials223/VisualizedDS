@@ -1,6 +1,10 @@
-# my-project
+#### 数据结构课程设计
 
-> An electron-vue project
+> 排序与约瑟夫环
+
+## Electron-Vue
+基于[vue]来构造[electron]应用程序的模板代码
+This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
 
 #### Build Setup
 
@@ -19,4 +23,3 @@ npm run build
 
 ---
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
