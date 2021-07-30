@@ -1,25 +1,19 @@
-# Create React App example
+# Data Structure Design
 
-## How to use
+## What is it?
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+This is the course of data structure design of Tongji Univeristy in the summer semester. It can realize the visualization of [Sort] and [Joseph]. 
 
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/next | tar -xz --strip=2 material-ui-next/examples/create-react-app
-cd create-react-app
-```
-
-Install it and run:
+## How to run in local
 
 ```sh
+git clone git@github.com:rawmaterials223/VisualizedDS.git
 npm install
 npm start
 ```
 
-or:
+## Technologies?
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/HEAD/examples/create-react-app)
-
-## The idea behind the example
-
-This example demonstrates how you can use [Create React App](https://github.com/facebookincubator/create-react-app). It includes `@material-ui/core` and its peer dependencies, including `emotion`, the default style engine in Material-UI v5. If you prefer, you can [use styled-components instead](https://next.material-ui.com/guides/interoperability/#styled-components).
+- [Material-UI]
+- [styled-components] css-in-js
+- [Zustand] hooks based state management library
