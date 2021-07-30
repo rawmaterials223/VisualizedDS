@@ -1,25 +1,25 @@
-#### 数据结构课程设计
+# Create React App example
 
-> 排序与约瑟夫环
+## How to use
 
-## Electron-Vue
-基于[vue]来构造[electron]应用程序的模板代码
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+Download the example [or clone the repo](https://github.com/mui-org/material-ui):
 
-#### Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:9080
-npm run dev
-
-# build electron application for production
-npm run build
-
-
+```sh
+curl https://codeload.github.com/mui-org/material-ui/tar.gz/next | tar -xz --strip=2 material-ui-next/examples/create-react-app
+cd create-react-app
 ```
 
----
+Install it and run:
 
+```sh
+npm install
+npm start
+```
+
+or:
+
+[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/HEAD/examples/create-react-app)
+
+## The idea behind the example
+
+This example demonstrates how you can use [Create React App](https://github.com/facebookincubator/create-react-app). It includes `@material-ui/core` and its peer dependencies, including `emotion`, the default style engine in Material-UI v5. If you prefer, you can [use styled-components instead](https://next.material-ui.com/guides/interoperability/#styled-components).
