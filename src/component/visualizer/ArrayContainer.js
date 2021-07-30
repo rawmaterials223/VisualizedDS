@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { useControl } from "../../common/store";
 import {
-    comparisionColor,
+    comparisonColor,
     swapColor,
     sortedColor,
     pivotColor,
@@ -104,44 +104,46 @@ export function ArrayContainer({
   highlightIndices,
   sortedIndices,
 }){
-  function getBackgroundColor(i){
-    if(i == pivot){
-        return pivotColor;
+  function getBackgroundColor(i) {
+    if (i === pivot) {
+      return pivotColor;
     }
-    if(highlightIndices.includes(i)){
-        return comparisionColor;
+
+    if (highlightIndices.includes(i)) {
+      return comparisonColor;
     }
-    if(sortedIndices.includes(i)){
-        return sortedColor;
+
+    if (sortedIndices.includes(i)) {
+      return sortedColor;
     }
     return "";
   }
 
   return (
     <ArrayHolder>
-        {array.map((value, index) => {
-            if(index === source){
+        {array.map((value, i) => {
+            if(i === source){
                 return (
                     <Source
-                       key={index + ":" + source + ":" + destination + ":" + value}
+                       key={i + ":" + source + ":" + destination + ":" + value}
                        distance={destination - source}
                        style={{
                            order:destination,
-                           backgroundColor: getBackgroundColor(index),
+                           backgroundColor: pivotColor,
                        }}
                     >
                        {value}
                     </Source>
                 );
             }
-            if(index === destination){
+            if(i === destination){
                 return(
                     <Destination
-                       key={index + ":" + destination + ":" + source + ":" + value}
+                       key={i + ":" + destination + ":" + source + ":" + value}
                        distance={destination - source}
                        styled={{
                            order: source,
-                           backgroundColor: getBackgroundColor(index),
+                           backgroundColor: pivotColor,
                        }}
                     >
                        {value}
@@ -150,10 +152,10 @@ export function ArrayContainer({
             }
             return(
                 <ArrayItem
-                   key={index + ":" + destination + ":" + source + ":" + value}
+                   key={i + ":" + destination + ":" + source + ":" + value}
                    styled={{
                        order: i,
-                       backgroundColor: getBackgroundColor(index),
+                       backgroundColor: pivotColor,
                    }}
                 >
                    {value}

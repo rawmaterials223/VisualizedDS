@@ -1,12 +1,12 @@
-import { BubbleSort } from "../component/SortAlgorithm";
+import { BubbleSort, InsertionSort, QuickSort, SelectionSort } from "../component/SortAlgorithm";
 
 export const sortingAlgorithms = [
-    { title: "Straight", name: "Straight InsertionSort" },
-    { title: "Binary", name: "Binary InsertionSort" },    
-    { title: "Shell", name: "ShellSort" },   
+    { component : InsertionSort, title: "Straight", name: "Straight InsertionSort" },
+    { component : InsertionSort, title: "Binary", name: "Binary InsertionSort" },    
+    { component : InsertionSort, title: "Shell", name: "ShellSort" },   
     { component : BubbleSort, title: "Bubble", name: "BubbleSort"},
-    { title: "Quick", name: "QuickSort" },
-    { title: "Selection", name: "SelectionSort" },
+    { component : QuickSort, title: "Quick", name: "QuickSort" },
+    { component : SelectionSort, title: "Selection", name: "SelectionSort" },
 ];
 
 export const sortingArray = initArray();

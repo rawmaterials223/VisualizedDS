@@ -130,7 +130,11 @@ export const SortManager = React.memo(function({
         sortedIndice.current.push(...indices);
     }
 
-    const arrayContainer = (
+    return(
+      <Container>
+        <AlgoHeaderBar>
+            <strong>{sortingAlgorithmName}</strong>
+        </AlgoHeaderBar>
         <ArrayContainer 
           array={algoArray.current}
           source={swapIndice[0]}
@@ -139,15 +143,6 @@ export const SortManager = React.memo(function({
           highlightIndice={highlightedIndice}
           sortedIndice={sortedIndice.current}
         />
-    );
-
-    return(
-      <Container>
-        <AlgoHeaderBar>
-            <strong>{sortingAlgorithmName}</strong>
-
-        </AlgoHeaderBar>
-        <arrayContainer/>
       </Container>
     );
 }
