@@ -9,7 +9,7 @@ export const sortingAlgorithms = [
     { component : SelectionSort, title: "Selection", name: "SelectionSort" },
 ];
 
-export const sortingArray = initArray();
+export let sortingArray = initArray();
 
 function initArray(){
     return [5,4,3,2,1];

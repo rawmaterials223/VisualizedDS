@@ -1,18 +1,19 @@
 import create from 'zustand';
+import { devtools } from "zustand/middleware";
 import { sortingArray, swapTime, compareTime, sortingAlgorithms } from "./config";
 
 export const useData = create(
-  set => ({
+  devtools(set => ({
     algorithm : 0,
     sortingArray : sortingArray,
 
     setSortingArray : (array) => set({ sortingArray : array }),
     setAlgorithm : (idx) => set({ algorithm : idx })
-  })
+  }))
 );
 
 export const useControl = create(
-  set => ({
+  devtools(set => ({
     progress: "reset",
     speed: 2,
     swapTime: swapTime,
@@ -36,5 +37,5 @@ export const useControl = create(
       }
     }),
     setSpeed : (speed) => set(() => { return { swapTime: 3000 / speed, compareTime: 1500 / speed, speed }; }),
-})
+  }))
 );

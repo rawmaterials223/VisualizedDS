@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import shallow from "zustand/shallow";
+
 import Card from "@material-ui/core/Card";
 import { delay } from "../../common/helper";
-import shallow from "zustand/shallow";
 import { useControl, useData } from "../../common/store";
 import { ArrayContainer } from "./ArrayContainer";
 
@@ -19,6 +20,11 @@ const AlgoHeaderBar = styled.div`
   justify-content: space-between;
   align-items: center;
   column-gap: 20px;
+`;
+
+const InfoFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 useControl.subscribe(
@@ -39,7 +45,7 @@ export const SortManager = React.memo(function({
     const [highlightedIndice, setHighlightedIndice] = React.useState([-1, -1]);
 
     const algoArray = React.useRef([]);
-    const sortedIndice = React.useRef([]);
+    const sortedIndices = React.useRef([]);
     const pivot = React.useRef(-1);
     const swapCount = React.useRef(0);
     const comparisonCount = React.useRef(0);
@@ -52,7 +58,7 @@ export const SortManager = React.memo(function({
 
     async function reset(){
         algoArray.current = [...useData.getState().sortingArray];
-        sortedIndice.current = [];
+        sortedIndices.current = [];
         pivot.current = -1;
         swapCount.current = 0;
         comparisonCount.current = 0;
@@ -108,17 +114,18 @@ export const SortManager = React.memo(function({
         }
     }
 
-    async function swap(i, j){
-        let temp = algoArray.current[i];
+    async function swap(i, j) {
+        let tmp = algoArray.current[i];
         algoArray.current[i] = algoArray.current[j];
-        algoArray.current[j] = temp;
+        algoArray.current[j] = tmp;
         setSwapIndice([i, j]);
+        
         pivot.current = -1;
         swapCount.current += 1;
         await delay(swapTime);
-    }
+      }
 
-    async function highlight(indices, p){
+    async function highlight(indices, p) {
         setSwapIndice([-1, -1]);
         comparisonCount.current += 1;
         pivot.current = p;
@@ -127,7 +134,7 @@ export const SortManager = React.memo(function({
     }
 
     function markSort(...indices){
-        sortedIndice.current.push(...indices);
+        sortedIndices.current.push(...indices);
     }
 
     return(
@@ -141,8 +148,11 @@ export const SortManager = React.memo(function({
           destination={swapIndice[1]}
           pivot={pivot.current}
           highlightIndice={highlightedIndice}
-          sortedIndice={sortedIndice.current}
+          sortedIndices={sortedIndices.current}
         />
+        <InfoFooter>
+          <div>Swap: <strong>{swapCount.current}</strong></div>
+        </InfoFooter>
       </Container>
     );
 }

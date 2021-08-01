@@ -129,7 +129,7 @@ export function ArrayContainer({
                        distance={destination - source}
                        style={{
                            order:destination,
-                           backgroundColor: swapColor,
+                           backgroundColor: comparisonColor,
                        }}
                     >
                        {value}
@@ -143,7 +143,7 @@ export function ArrayContainer({
                        distance={destination - source}
                        styled={{
                            order: source,
-                           backgroundColor: swapColor,
+                           backgroundColor: comparisonColor,
                        }}
                     >
                        {value}
@@ -155,7 +155,7 @@ export function ArrayContainer({
                    key={i + ":" + destination + ":" + source + ":" + value}
                    styled={{
                        order: i,
-                       backgroundColor: swapColor,
+                       backgroundColor: comparisonColor,
                    }}
                 >
                    {value}
