@@ -133,9 +133,9 @@ export const SortManager = React.memo(function({
     return(
       <Container>
         <AlgoHeaderBar>
-            <strong>{sortingAlgorithmName}</strong>
+          <strong>{sortingAlgorithmName}</strong>
         </AlgoHeaderBar>
-        <ArrayContainer 
+        <ArrayContainer
           array={algoArray.current}
           source={swapIndice[0]}
           destination={swapIndice[1]}

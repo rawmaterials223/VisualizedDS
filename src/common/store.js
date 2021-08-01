@@ -14,7 +14,7 @@ export const useData = create(
 export const useControl = create(
   set => ({
     progress: "reset",
-    speed: 3,
+    speed: 2,
     swapTime: swapTime,
     compareTime: compareTime,
     doneCount: 0,
@@ -35,6 +35,6 @@ export const useControl = create(
         return {progress: "done"};
       }
     }),
-    setSpeed : (speed) => set(() => { return { swapTime: 3000 / speed, compareTime: 1500, speed }; }),
+    setSpeed : (speed) => set(() => { return { swapTime: 3000 / speed, compareTime: 1500 / speed, speed }; }),
 })
 );

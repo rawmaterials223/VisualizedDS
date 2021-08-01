@@ -14,10 +14,10 @@ import ReplayOutlinedIcon from '@material-ui/icons/ReplayOutlined';
 
 import shallow from "zustand/shallow";
 
-import { useData, useControl } from "./common/store";
-import { sortingAlgorithms } from "./common/config";
-import { getRandomArray, inputArrayToString, stringToArray, delay } from "./common/helper";
-import { SortManager } from './component/visualizer/SortManager'; 
+import { useData, useControl } from "../common/store";
+import { sortingAlgorithms } from "../common/config";
+import { getRandomArray, inputArrayToString, stringToArray, delay } from "../common/helper";
+import { SortManager } from './visualizer/SortManager'; 
 
 import InputBase from '@material-ui/core/InputBase';
 
@@ -218,8 +218,6 @@ function Controller(){
   );
 }
 
-const flexCenter = { display: "flex", justifyContent: "center" };
-
 function TabPanel(props){
   const { children, value, index, ...other } = props;
 
@@ -237,7 +235,7 @@ function TabPanel(props){
   );
 }
 
-export function AlgoDisplay(){
+function AlgoDisplay(){
   const resetSorting = useControl((state) => state.resetSorting);
 
   const [sortingArray, algorithm] = useData(
@@ -250,7 +248,7 @@ export function AlgoDisplay(){
   }, [algorithm]);
 
   return (
-    <div style={flexCenter}>
+    <div style={{display: "flex", justifyContent: "center"}}>
       {sortingAlgorithms.map((algoInfo, idx) => (
         <TabPanel value={algorithm} index={idx} key={algoInfo.name}>
           <SortManager
@@ -275,41 +273,6 @@ export function AlgoDisplay(){
     </div>
   );
 }
-
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-  },
-  input: {
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}))(InputBase);
 
 export default function Sort(){
 
