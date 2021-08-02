@@ -3,8 +3,6 @@ import { BubbleSort } from "../sortFunctions/BubbleSort";
 import { SelectionSort } from "../sortFunctions/SelectionSort";
 import { InsertionSort } from "../sortFunctions/InsertionSort";
 import { QuickSort } from "../sortFunctions/QuickSort";
-import { HeapSort } from "../sortFunctions/HeapSort.js";
-import { MergeSort } from "../sortFunctions/MergeSort";
 import { BInsertionSort } from "../sortFunctions/BInsertionSort";
 import { ShellSort } from "../sortFunctions/ShellSort";
 // colors setting

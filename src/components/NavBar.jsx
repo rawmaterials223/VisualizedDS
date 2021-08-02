@@ -32,15 +32,6 @@ export function NavBar() {
 
   return (
     <div className={classes.root}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <h3>Sort</h3>
-      </div>
       <AppBar position="static" color="default">
         <Tabs
           value={algorithm}
