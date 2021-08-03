@@ -15,6 +15,13 @@ export function convertArrayStringToArray(string) {
     .map((v) => +v);
 }
 
+export function checkInputNumber(string){
+  string = string.replaceAll(/\s/g, "");
+  string = string.replaceAll(/[^0-9]/g,"");
+  string = string.replaceAll(/\d{3}/g, "");
+  return string;
+}
+
 export function getRandomArray(length = generateRandomNumberInRange(5, 30)) {
   return Array.from(new Array(length), () => generateRandomNumberInRange());
 }
@@ -27,6 +34,10 @@ export function delay(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-function generateRandomNumberInRange(lowerLimit = 0, upperLimit = 999) {
+function generateRandomNumberInRange(lowerLimit = 0, upperLimit = 99) {
+  return lowerLimit + Math.floor(Math.random() * upperLimit);
+}
+
+export function getRandomNumber(lowerLimit = 0, upperLimit = 50){
   return lowerLimit + Math.floor(Math.random() * upperLimit);
 }

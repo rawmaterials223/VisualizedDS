@@ -1,10 +1,10 @@
 import { getScreenWidth } from "./helper";
-import { BubbleSort } from "../sortFunctions/BubbleSort";
-import { SelectionSort } from "../sortFunctions/SelectionSort";
-import { InsertionSort } from "../sortFunctions/InsertionSort";
-import { QuickSort } from "../sortFunctions/QuickSort";
-import { BInsertionSort } from "../sortFunctions/BInsertionSort";
-import { ShellSort } from "../sortFunctions/ShellSort";
+import { BubbleSort } from "../Functions/BubbleSort";
+import { SelectionSort } from "../Functions/SelectionSort";
+import { InsertionSort } from "../Functions/InsertionSort";
+import { QuickSort } from "../Functions/QuickSort";
+import { BInsertionSort } from "../Functions/BInsertionSort";
+import { ShellSort } from "../Functions/ShellSort";
 // colors setting
 export const comparisionColor = "pink";
 export const swapColor = "yellow";
@@ -14,8 +14,10 @@ export const pivotColor = "sandybrown";
 // time setting
 export let swapTime = 1000;
 export let compareTime = 500;
+export let cycleTime= 1000;
 
-// init array
+// init settings
+export let numberTotal = 10;
 export let sortingArray = initArrayForScreenSize();
 
 export const sortingAlgorithms = [

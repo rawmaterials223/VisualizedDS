@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ArrayContainer } from "./ArrayContainer";
 import { MergeContainer } from "./MergeContainer";
-import { InfoFooter } from "./InfoFooter";
 import { Timer } from "./Timer";
 import Card from "@material-ui/core/Card";
 import { delay } from "../../common/helper";
@@ -38,6 +37,11 @@ const TimerDiv = styled.div`
   column-gap: 5px;
   min-width: 8rem;
   justify-content: flex-end;
+`;
+
+const InfoFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const SortManager = React.memo(function ({
@@ -186,10 +190,10 @@ export const SortManager = React.memo(function ({
         </TimerDiv>
       </AlgoHeaderBar>
       {sortingAlgorithmName === "MergeSort" ? mergeContainer : arrayContainer}
-      <InfoFooter
-        swapCount={swapCount.current}
-        comparisionCount={comparisionCount.current}
-      ></InfoFooter>
+      <InfoFooter>
+        <div>Swaps: <strong>{swapCount.current}</strong></div>
+        <div>Comparison: <strong>{comparisionCount.current}</strong></div>
+      </InfoFooter>
     </Container>
   );
 });

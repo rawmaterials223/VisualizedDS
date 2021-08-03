@@ -6,6 +6,7 @@ import {
     Link as RouterLink,
 }from "react-router-dom";
 import Sort from './Sort';
+import Joseph from './Joseph';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
@@ -74,9 +75,4 @@ function Home(){
     </Card>
   );
 
-}
-
-function Joseph()
-{
-    return <h2>Joseph</h2>;
 }

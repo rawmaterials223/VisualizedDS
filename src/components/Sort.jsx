@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { NavBar } from "./NavBar";
-import { Controller } from "./Controller";
+import { SortNavBar } from "./NavBar";
+import { SortController } from "./Controller";
 import { AlgoDisplay } from "./AlgoDisplay";
 
 const Container = styled.div`
@@ -14,8 +14,8 @@ const Container = styled.div`
 export default function Sort() {
   return (
     <Container>
-      <NavBar />
-      <Controller />
+      <SortNavBar />
+      <SortController />
       <AlgoDisplay />
     </Container>
   );

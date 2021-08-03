@@ -6,6 +6,7 @@ import Tab from "@material-ui/core/Tab";
 import { sortingAlgorithms } from "../common/config";
 import { useData } from "../common/store";
 import shallow from "zustand/shallow";
+import { VerticalAlignTopOutlined } from "@material-ui/icons";
 
 function a11yProps(index) {
   return {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function NavBar() {
+export function SortNavBar() {
   const classes = useStyles();
 
   const [algorithm, setAlgorithm] = useData(
@@ -54,4 +55,29 @@ export function NavBar() {
       </AppBar>
     </div>
   );
+}
+
+export function JosephNavBar(){
+  const classes = useStyles();
+  const [value, setValue] = React.useState('');
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  }
+  return(
+    <div className={classes.root}>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab label="Joseph Circle" key="Joseph Circle"/>
+        </Tabs>
+      </AppBar>
+    </div>
+  );
+
 }

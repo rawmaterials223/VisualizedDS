@@ -1,3 +1,4 @@
+import { NotificationsActiveOutlined } from "@material-ui/icons";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 import {
@@ -5,6 +6,8 @@ import {
   compareTime,
   swapTime,
   sortingAlgorithms,
+  cycleTime,
+  numberTotal
 } from "./config";
 
 export const useControls = create(
@@ -40,5 +43,27 @@ export const useData = create(
 
     setSortingArray: (array) => set({ sortingArray: array }),
     setAlgorithm: (idx) => set({ algorithm: idx }),
+  }))
+);
+
+export const useControl= create(
+  devtools((set) => ({
+    progress: "reset",
+    speed: 3,
+    cycleTime: cycleTime,
+    numberTotal: numberTotal,
+    randomM: 1,
+    swapTime : swapTime,
+
+    setSpeed: (speed) =>
+      set(() => {
+        return { swapTime: 3000 / speed, compareTime: 1500 / speed, speed };
+      }),
+    phaseStart : () => set({ progress : "start" }),
+    phaseReset : () => set({ progress : "reset" }),
+    phasePause : () => set({ progress : "pause"}),
+    //phaseDone?
+    setNumberTotal : (n) => set({ numberTotal : n }),
+    setRandomM : (m) => set({ randomM : m }),
   }))
 );

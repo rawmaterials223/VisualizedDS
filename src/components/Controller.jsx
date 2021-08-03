@@ -11,11 +11,13 @@ import Button from "@material-ui/core/Button";
 import { delay } from "../common/helper";
 
 import shallow from "zustand/shallow";
-import { useControls, useData } from "../common/store";
+import { useControls, useData, useControl } from "../common/store";
 import {
   convertInputToArrayString,
   convertArrayStringToArray,
   getRandomArray,
+  getRandomNumber,
+  checkInputNumber
 } from "../common/helper";
 
 const ControlBar = styled.div`
@@ -31,7 +33,7 @@ const ArrayBar = styled.div`
   align-items: center;
   flex-basis: 60%;
   flex-grow: 1;
-  min-width: 300px;
+  min-width: 200px;
 `;
 
 const ExecutionBar = styled.div`
@@ -41,7 +43,7 @@ const ExecutionBar = styled.div`
   flex-grow: 1;
 `;
 
-export function Controller() {
+export function SortController() {
 
   const [isPausing, setIsPausing] = useState(false);
 
@@ -69,8 +71,8 @@ export function Controller() {
 
   const startElement = <PlayArrowOutlinedIcon onClick={startSorting} />;
   const pauseElement = <PauseCircleOutlineOutlinedIcon onClick={pauseAndDelaySorting} />;
-  const resetElement = <ReplayOutlinedIcon onClick={resetSorting} />;
-  const disabledPauseElement = <PauseCircleOutlineOutlinedIcon style={{ color: "#e5e5e5" }} />;
+  const resetElement = <ReplayOutlinedIcon onClick={resetSorting}/>;
+  const disabledPauseElement = <PauseCircleOutlineOutlinedIcon color="disabled"/>;
 
   async function pauseAndDelaySorting(){
     pauseSorting();
@@ -121,7 +123,6 @@ export function Controller() {
         >
           Generate
         </Button>
-
         <TextField
           id="outlined-basic"
           label="Input"
@@ -143,12 +144,107 @@ export function Controller() {
           step={1}
           marks
           min={1}
-          max={10}
+          max={5}
           style={{ flexGrow: 1, flexBasis: "100%" }}
         />
-
         <div style={{ display: "flex", marginLeft: '20px', columnGap: '5px' }}>
           {getProgressButton()}
+          {resetElement}
+        </div>
+      </ExecutionBar>
+    </ControlBar>
+  );
+}
+
+export function JosephController(){
+
+  const [isPausing, setIsPausing] = useState(false);
+
+  const [progress, numberTotal, speed] = useControl(
+    (state) => [state.progress, state.numberTotal, state.speed], shallow
+  );
+  
+  const [setNumberTotal, setSpeed] = useControl(
+    (state) => [state.setNumberTotal, state.setSpeed], shallow
+  );
+
+  const [phaseStart, phaseReset, phasePause] = useControl(
+    (state) => [state.phaseStart, state.phaseReset, state.phasePause], shallow
+  );
+
+  const startElement = <PlayArrowOutlinedIcon onClick={phaseStart}/>;
+  const resetElement = <ReplayOutlinedIcon onClick={phaseReset}/>;
+  const pauseElement = <PauseCircleOutlineOutlinedIcon onClick={pauseAndDelay}/>;
+  const disabledPauseElement = <PauseCircleOutlineOutlinedIcon color="disabled"/>;
+
+  async function pauseAndDelay(){
+    phasePause();
+    setIsPausing(true);
+    await delay(useControls.getState().swapTime);
+    setIsPausing(false);
+  }
+
+  function handleNumberTotal(value){
+    const string = checkInputNumber(value);
+    setNumberTotal(string);
+  }
+
+  function generate(){
+    const randomN = getRandomNumber();
+    setNumberTotal(randomN);
+  }
+
+  function getprogressButton(){
+    if(isPausing)
+      return disabledPauseElement;
+    switch(progress){
+      case "reset":
+        return startElement;
+      case "start":
+        return pauseElement;
+      case "pause":
+        return startElement;
+      case "done":
+        return disabledPauseElement;
+    }
+  }
+
+  return(
+    <ControlBar>
+      <ArrayBar>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={generate}
+        >
+          Generate
+        </Button>
+        <TextField
+          id="outlined-basic"
+          label="n range=[0,99]"
+          variant="outlined"
+          onChange={(event) => handleNumberTotal(event.target.value)}
+          value={numberTotal}
+          size="small"
+          width="100px"
+          style={{ flexGrow: 1, margin: '0 10px' }}
+        />
+      </ArrayBar>
+      <ExecutionBar>
+        <Slider
+          key={`slider-${speed}`}
+          defaultValue={speed}
+          onChange={(event, value) => setSpeed(value)}
+          aria-labelledby="discrete-slider"
+          valueLabelDisplay="auto"
+          step={1}
+          marks
+          min={1}
+          max={5}
+          style={{ flexGrow: 1, flexBasis: "100%" }}
+        />
+        <div style={{ display: "flex", marginLeft: '20px', columnGap: '5px' }}>
+          {getprogressButton()}
           {resetElement}
         </div>
       </ExecutionBar>
