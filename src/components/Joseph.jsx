@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { JosephNavBar } from "./NavBar";
 import { JosephController } from "./Controller";
+import { JosephAlgoDisplay } from "./AlgoDisplay";
+
 const Container = styled.div`
   margin: 0 10px;
   min-height: calc(100vh - 50px);
@@ -14,6 +16,7 @@ export default function Joseph(){
     <Container>
       <JosephNavBar/>
       <JosephController/>
+      <JosephAlgoDisplay/>
     </Container>
   );
 }

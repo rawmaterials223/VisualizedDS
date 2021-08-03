@@ -1,4 +1,3 @@
-import { NotificationsActiveOutlined } from "@material-ui/icons";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 import {
@@ -54,7 +53,9 @@ export const useControl= create(
     numberTotal: numberTotal,
     randomM: 1,
     swapTime : swapTime,
+    josephArray: [],
 
+    setJosephArray: (array) => set({ josephArray: array }),
     setSpeed: (speed) =>
       set(() => {
         return { swapTime: 3000 / speed, compareTime: 1500 / speed, speed };

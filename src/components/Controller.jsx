@@ -17,7 +17,8 @@ import {
   convertArrayStringToArray,
   getRandomArray,
   getRandomNumber,
-  checkInputNumber
+  checkInputNumber,
+  getArray
 } from "../common/helper";
 
 const ControlBar = styled.div`
@@ -164,9 +165,16 @@ export function JosephController(){
     (state) => [state.progress, state.numberTotal, state.speed], shallow
   );
   
+  const [josephArray, setJosephArray] = useControl(
+    (state) => [state.josephArray, state.setJosephArray],
+    shallow
+  );
+
   const [setNumberTotal, setSpeed] = useControl(
     (state) => [state.setNumberTotal, state.setSpeed], shallow
   );
+  
+  const [numberInput, setNumberInput] = React.useState(numberTotal);
 
   const [phaseStart, phaseReset, phasePause] = useControl(
     (state) => [state.phaseStart, state.phaseReset, state.phasePause], shallow
@@ -186,12 +194,24 @@ export function JosephController(){
 
   function handleNumberTotal(value){
     const string = checkInputNumber(value);
-    setNumberTotal(string);
+    setNumberInput(string);
+
+    const arraystring = convertArrayStringToArray(string);
+    setNumberTotal(arraystring);
+
+    const array = getArray(numberTotal);
+    setJosephArray(array);
+    phaseReset();
   }
 
   function generate(){
     const randomN = getRandomNumber();
+    setNumberInput(randomN);
     setNumberTotal(randomN);
+    
+    const array = getArray(randomN);
+    setJosephArray(array);
+    phaseReset();
   }
 
   function getprogressButton(){
@@ -224,7 +244,7 @@ export function JosephController(){
           label="n range=[0,99]"
           variant="outlined"
           onChange={(event) => handleNumberTotal(event.target.value)}
-          value={numberTotal}
+          value={numberInput}
           size="small"
           width="100px"
           style={{ flexGrow: 1, margin: '0 10px' }}

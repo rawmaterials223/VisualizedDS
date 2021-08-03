@@ -38,6 +38,13 @@ function generateRandomNumberInRange(lowerLimit = 0, upperLimit = 99) {
   return lowerLimit + Math.floor(Math.random() * upperLimit);
 }
 
-export function getRandomNumber(lowerLimit = 0, upperLimit = 50){
+export function getRandomNumber(lowerLimit = 0, upperLimit = 100){
   return lowerLimit + Math.floor(Math.random() * upperLimit);
+}
+
+export function getArray(num){
+  var array = new Array(num);
+  for(let i = 0; i < num; i++)
+    array[i] = i + 1;
+  return array;
 }

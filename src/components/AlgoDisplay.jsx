@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { sortingAlgorithms } from "../common/config";
-import { useControls, useData } from "../common/store";
 import shallow from "zustand/shallow";
+import { sortingAlgorithms } from "../common/config";
+import { useControls, useData, useControl } from "../common/store";
 import { SortManager } from "./visualizer/SortManager";
 
 const FlexWrap = styled.div`
@@ -38,7 +38,7 @@ function TabPanel(props) {
   );
 }
 
-export function AlgoDisplay() {
+export function SortAlgoDisplay() {
   const resetSorting = useControls((state) => state.resetSorting);
 
   const [sortingArray, algorithm] = useData(
@@ -53,7 +53,7 @@ export function AlgoDisplay() {
   if (sortingArray.length === 0)
     return (
       <h3 style={flexCenter}>
-        Please enter input array or use generate button
+        Please fill in the blank or push the generate button!
       </h3>
     );
 
@@ -80,6 +80,28 @@ export function AlgoDisplay() {
           ))}
         </FlexWrap>
       </TabPanel>
+    </div>
+  );
+}
+
+export function JosephAlgoDisplay(){
+  const [numberTotal, phaseReset] = useControl(
+    (state) => [state.numberTotal, state.phaseReset]);
+  
+  const josephArray = useControl((state) => state.josephArray);
+  
+
+  if(josephArray.length === 0){
+    return(
+      <h3 style={flexCenter}>
+        Please fill in the blank or push the generate button!
+      </h3>
+    );
+  }
+
+  return(
+    <div style={flexCenter}>
+      
     </div>
   );
 }
