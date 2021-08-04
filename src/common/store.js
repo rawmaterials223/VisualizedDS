@@ -6,6 +6,7 @@ import {
   swapTime,
   sortingAlgorithms,
   cycleTime,
+  deQueueTime,
   numberTotal
 } from "./config";
 
@@ -53,6 +54,7 @@ export const useControl= create(
     numberTotal: numberTotal,
     randomM: 1,
     swapTime : swapTime,
+    deQueueTime : deQueueTime,
     josephArray: [],
 
     setJosephArray: (array) => set({ josephArray: array }),
@@ -63,7 +65,7 @@ export const useControl= create(
     phaseStart : () => set({ progress : "start" }),
     phaseReset : () => set({ progress : "reset" }),
     phasePause : () => set({ progress : "pause"}),
-    //phaseDone?
+    phaseDone : () => set({ progress : "done" }),
     setNumberTotal : (n) => set({ numberTotal : n }),
     setRandomM : (m) => set({ randomM : m }),
   }))

@@ -4,6 +4,8 @@ import shallow from "zustand/shallow";
 import { sortingAlgorithms } from "../common/config";
 import { useControls, useData, useControl } from "../common/store";
 import { SortManager } from "./visualizer/SortManager";
+import { JosephManager } from "./visualizer/JosephManager";
+import { JosephFunction } from "../Functions/Joseph";
 
 const FlexWrap = styled.div`
   display: flex;
@@ -90,6 +92,9 @@ export function JosephAlgoDisplay(){
   
   const josephArray = useControl((state) => state.josephArray);
   
+  React.useEffect(() => {
+    phaseReset();
+  }, [josephArray]);
 
   if(josephArray.length === 0){
     return(
@@ -101,7 +106,15 @@ export function JosephAlgoDisplay(){
 
   return(
     <div style={flexCenter}>
-      
+      <TabPanel value={numberTotal} index={numberTotal}>
+        <FlexWrap>
+          <JosephManager
+            array={josephArray}
+            josephFunction={JosephFunction}
+            numberTotal={numberTotal}
+          />
+        </FlexWrap>
+      </TabPanel>
     </div>
   );
 }

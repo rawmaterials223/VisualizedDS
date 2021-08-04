@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import Card from "@material-ui/core/Card";
+import shallow from "zustand/shallow";
 import { ArrayContainer } from "./ArrayContainer";
 import { MergeContainer } from "./MergeContainer";
 import { Timer } from "./Timer";
-import Card from "@material-ui/core/Card";
 import { delay } from "../../common/helper";
-import shallow from "zustand/shallow";
 import { useControls, useData } from "../../common/store";
 
 let compareTime = useControls.getState().compareTime;
