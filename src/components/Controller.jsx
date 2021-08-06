@@ -174,7 +174,7 @@ export function JosephController(){
     (state) => [state.setNumberTotal, state.setSpeed], shallow
   );
   
-  const [numberInput, setNumberInput] = React.useState(numberTotal);
+  const [numberInput, setNumberInput] = useState(numberTotal);
 
   const [phaseStart, phaseReset, phasePause] = useControl(
     (state) => [state.phaseStart, state.phaseReset, state.phasePause], shallow
@@ -196,8 +196,8 @@ export function JosephController(){
     const string = checkInputNumber(value);
     setNumberInput(string);
 
-    const arraystring = convertArrayStringToArray(string);
-    setNumberTotal(arraystring);
+    const numberstring = convertArrayStringToArray(string);
+    setNumberTotal(numberstring);
 
     const array = getArray(numberTotal);
     setJosephArray(array);

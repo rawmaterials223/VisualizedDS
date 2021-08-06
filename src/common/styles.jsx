@@ -105,3 +105,28 @@ export const sourceAnimation = (distance, swapColor) => keyframes`
     background-color: none;
   }
 `;
+
+export const dequeueAnimation = (distance, color) => keyframes`
+  0% {
+    background-color: ${color};
+  }
+  10% {
+    transform: translate(0px, 0px);
+    background-color: ${color};
+  }
+  30% {
+    transform: translate(0px, 100px);
+    background-color: ${color};
+  }
+  70% {
+    transform: translate(-${distance * 50}px, 100px);
+    background-color: ${color};
+  }
+  99% {
+    transform: translate(-${distance * 50}px, 0px);
+    background-color: ${color};
+  }
+  100% {
+    transform: translate(-${distance * 50}px, 0px);
+  }
+`;

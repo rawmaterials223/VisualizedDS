@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { deQueueColor } from "../../common/config";
+import { dequeueColor } from "../../common/config";
 import { useControl } from "../../common/store";
 
 let deQueueTime = useControl.getState().deQueueTime;
@@ -9,8 +9,54 @@ useControl.subscribe(
   (state) => state.deQueueTime
 );
 
-export function JosephContainer({
+import {
+  ArrayHolder,
+  ArrayItem,
+  dequeueAnimation,
+  moveAnimation
+} from "../../common/styles";
 
+const AnimatedItem = styled(ArrayItem)`
+  animation: ${(props) => dequeueAnimation(props.distance, dequeueColor)}
+  ${() => deQueueTime / 1000}s forwards;
+`;
+
+const MovedItem = styled(ArrayItem)`
+  animation: ${moveAnimation()} ${() => deQueueTime / 1000}s forwards;
+`;
+
+export function JosephContainer({
+  array,
+  source,
+  destination,
 }) {
-    
+
+  const [items, setItems] = useState([...array]);
+
+  /*
+    useEffect(() => {
+    if (source !== -1 && destination !== -1) {
+      generateItems(setItems, source, destination);
+    }
+  }, [source, destination]);
+  */
+  useEffect(() => {
+    setItems([...array]);
+  }, [array]);
+
+  return(
+    <ArrayHolder>
+      {items.map((value, i) => {
+        return(
+          <ArrayItem
+            key={i+":"+value}
+            style={{order : i}}
+          >
+            {value}
+          </ArrayItem>
+        );
+      })}
+    </ArrayHolder>
+
+  );
 }

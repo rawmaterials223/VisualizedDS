@@ -33,6 +33,7 @@ export const JosephManager = React.memo(function({
   numberTotal,
 }) {
   
+  const [dequeueIndices, setDequeueIndices] = useState([-1,-1]);
   const deQueue = useRef(-1); //出列元素--deQueue.current，其下一个元素为报数元素。
   const algoArray = useRef([]);
   const isAlgoExecutionOver = useRef(false);
@@ -45,10 +46,10 @@ export const JosephManager = React.memo(function({
   async function reset(){
     algoArray.current = [...useControl.getState().josephArray];
     deQueue.current = -1;
-
+    setDequeueIndices([-1, -1]);
     isAlgoExecutionOver.current = false;
     josephProgressIterator.current = 
-      await josephFunction(algoArray.current, highlight);
+      await josephFunction(algoArray.current, highlight, dequeue);
   }
 
   async function runAlgo(){
@@ -65,6 +66,7 @@ export const JosephManager = React.memo(function({
     if(!isAlgoExecutionOver.current && completion?.done){
       deQueue.current = -1;
       isAlgoExecutionOver.current = true;
+      setDequeueIndices([-1, -1]);
       phaseDone();
     }
   }
@@ -89,6 +91,12 @@ export const JosephManager = React.memo(function({
     reset();
   }, [array]);
 
+  async function dequeue(i, j){
+    //i---josephArray.index
+    //j---queueArray.index
+    setDequeueIndices([i, j]);
+  }
+
   async function highlight(p){
     deQueue.current = p;
     await delay(deQueueTime);
@@ -96,9 +104,14 @@ export const JosephManager = React.memo(function({
 
   return(
     <Container>
-       <HeadBar>
-          <strong>{numberTotal}</strong>
-       </HeadBar>
+      <HeadBar>
+        <strong>n : {numberTotal}</strong>
+      </HeadBar>
+      <JosephContainer
+        array={array}
+        source={dequeueIndices[0]}
+        destination={dequeueIndices[1]}
+      />
     </Container>
 
   ); 

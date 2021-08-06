@@ -1,3 +1,3 @@
-export async function* JosephFunction(array,highlight){
+export async function* JosephFunction(array, highlight, dequeue){
   
 }

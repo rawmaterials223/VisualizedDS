@@ -10,7 +10,7 @@ export const comparisionColor = "pink";
 export const swapColor = "yellow";
 export const sortedColor = "springgreen";
 export const pivotColor = "sandybrown";
-export const deQueueColor = "pink";
+export const dequeueColor = "pink";
 // time setting
 export let swapTime = 1000;
 export let compareTime = 500;
