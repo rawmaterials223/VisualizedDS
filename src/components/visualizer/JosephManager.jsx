@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import Popover from '@material-ui/core/Popover';
 import Card from "@material-ui/core/Card";
 import shallow from "zustand/shallow";
 import { useControl } from "../../common/store";
 import { JosephContainer } from "./JosephContainer";
+import { getRandomNumber } from "../../common/helper";
 
 let deQueueTime = useControl.getState().deQueueTime;
 
@@ -27,14 +30,26 @@ const HeadBar = styled.div`
   column-gap: 20px;
 `;
 
+const DiceBar = styled.div`
+  display:flex;
+  justify-content: space-between;
+  aligh-items: center;
+  
+`;
+
 export const JosephManager = React.memo(function({
   array,
   josephFunction,
   numberTotal,
 }) {
   
+  const [highlightIndice, setHighlightIndice] = useState(-1);  
+  //遍历数组元素时使方块变色
+
   const [dequeueIndices, setDequeueIndices] = useState([-1,-1]);
-  const deQueue = useRef(-1); //出列元素--deQueue.current，其下一个元素为报数元素。
+  //出列元素
+
+  const [randomM, setRandomM] = useState(0); 
   const algoArray = useRef([]);
   const isAlgoExecutionOver = useRef(false);
   const isComponentUnMounted = useRef(false);
@@ -45,13 +60,14 @@ export const JosephManager = React.memo(function({
   
   async function reset(){
     algoArray.current = [...useControl.getState().josephArray];
-    deQueue.current = -1;
+    setRandomM(0);
+    setHighlightIndice(-1);
     setDequeueIndices([-1, -1]);
     isAlgoExecutionOver.current = false;
     josephProgressIterator.current = 
-      await josephFunction(algoArray.current, highlight, dequeue);
+      await josephFunction(algoArray.current, randomM.current, highlight, dequeue);
   }
-
+  //randomM.current需要商榷
   async function runAlgo(){
     let completion = { done : false };
     while(!completion?.done 
@@ -64,8 +80,9 @@ export const JosephManager = React.memo(function({
       return;
     }
     if(!isAlgoExecutionOver.current && completion?.done){
-      deQueue.current = -1;
       isAlgoExecutionOver.current = true;
+      setRandomM(0);
+      setHighlightIndice(-1);
       setDequeueIndices([-1, -1]);
       phaseDone();
     }
@@ -91,26 +108,60 @@ export const JosephManager = React.memo(function({
     reset();
   }, [array]);
 
-  async function dequeue(i, j){
-    //i---josephArray.index
-    //j---queueArray.index
-    setDequeueIndices([i, j]);
+  async function dequeue(idx, p){
+    setDequeueIndices([idx, p]);
+    await dealy(deQueueTime);
   }
 
   async function highlight(p){
-    deQueue.current = p;
+    setHighlightIndice(p);
     await delay(deQueueTime);
   }
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    var num = getRandomNumber(1, 6);
+    setRandomM(num);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return(
     <Container>
       <HeadBar>
         <strong>n : {numberTotal}</strong>
       </HeadBar>
+      <DiceBar>
+        <Button 
+          aria-describedby={id} 
+          variant="contained" 
+          color="primary" 
+          onClick={handleClick}
+        > 
+          DICE
+        </Button>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+          transformOrigin={{vertical: 'top', horizontal: 'center',}}
+        >
+          {randomM}
+        </Popover>
+      </DiceBar>
       <JosephContainer
         array={array}
         source={dequeueIndices[0]}
         destination={dequeueIndices[1]}
+        highlightIndice={highlightIndice}
       />
     </Container>
 

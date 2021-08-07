@@ -29,6 +29,7 @@ export function JosephContainer({
   array,
   source,
   destination,
+  highlightIndice,
 }) {
 
   const [items, setItems] = useState([...array]);
@@ -45,18 +46,22 @@ export function JosephContainer({
   }, [array]);
 
   return(
+    <div>
     <ArrayHolder>
       {items.map((value, i) => {
         return(
           <ArrayItem
             key={i+":"+value}
             style={{order : i}}
+            distance={source-destination}
           >
             {value}
           </ArrayItem>
         );
       })}
+
     </ArrayHolder>
 
+    </div>
   );
 }
