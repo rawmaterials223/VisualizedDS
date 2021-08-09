@@ -188,7 +188,7 @@ export function JosephController(){
   async function pauseAndDelay(){
     phasePause();
     setIsPausing(true);
-    await delay(useControls.getState().swapTime);
+    await delay(useControl.getState().swapTime);
     setIsPausing(false);
   }
 

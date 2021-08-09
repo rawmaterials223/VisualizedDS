@@ -45,15 +45,41 @@ export function JosephContainer({
     setItems([...array]);
   }, [array]);
 
+  function getBackgroundColor(i){
+    if(highlightIndice.includes(i))
+      return dequeueColor;
+    return "";
+  }
+
   return(
     <div>
-    <ArrayHolder>
+    <ArrayHolder style={{height: "275px"}}>
       {items.map((value, i) => {
+        if(i === source){
+          return(
+            <AnimatedItem
+              key={i+":"+value}
+              style={{order:i, }}
+              distance={source-destination}
+            >
+              {value}
+            </AnimatedItem>
+          );
+        }
+        else if(i > source){
+          return(
+            <MovedItem
+              key={i+":"+value}
+              style={{order:i, }}
+            >
+              {value}
+            </MovedItem>
+          );
+        }
         return(
           <ArrayItem
             key={i+":"+value}
             style={{order : i}}
-            distance={source-destination}
           >
             {value}
           </ArrayItem>

@@ -6,7 +6,7 @@ import Card from "@material-ui/core/Card";
 import shallow from "zustand/shallow";
 import { useControl } from "../../common/store";
 import { JosephContainer } from "./JosephContainer";
-import { getRandomNumber } from "../../common/helper";
+import { delay, getRandomNumber } from "../../common/helper";
 
 let deQueueTime = useControl.getState().deQueueTime;
 
@@ -49,7 +49,7 @@ export const JosephManager = React.memo(function({
   const [dequeueIndices, setDequeueIndices] = useState([-1,-1]);
   //出列元素
 
-  const [randomM, setRandomM] = useState(0); 
+  const randomM = useRef(0);
   const algoArray = useRef([]);
   const isAlgoExecutionOver = useRef(false);
   const isComponentUnMounted = useRef(false);
@@ -60,32 +60,12 @@ export const JosephManager = React.memo(function({
   
   async function reset(){
     algoArray.current = [...useControl.getState().josephArray];
-    setRandomM(0);
+    randomM.current = 0;
     setHighlightIndice(-1);
     setDequeueIndices([-1, -1]);
     isAlgoExecutionOver.current = false;
     josephProgressIterator.current = 
       await josephFunction(algoArray.current, randomM.current, highlight, dequeue);
-  }
-  //randomM.current需要商榷
-  async function runAlgo(){
-    let completion = { done : false };
-    while(!completion?.done 
-        && progress.current === "start" 
-        && !isComponentUnMounted.current
-    ){
-        completion = await josephProgressIterator.current?.next();
-    }
-    if(isComponentUnMounted.current) {
-      return;
-    }
-    if(!isAlgoExecutionOver.current && completion?.done){
-      isAlgoExecutionOver.current = true;
-      setRandomM(0);
-      setHighlightIndice(-1);
-      setDequeueIndices([-1, -1]);
-      phaseDone();
-    }
   }
 
   useEffect(() => {
@@ -106,11 +86,35 @@ export const JosephManager = React.memo(function({
 
   useEffect(() => {
     reset();
-  }, [array]);
+  }, [array]);  
+
+  console.log("processIterator",josephProgressIterator.current);
+
+  async function runAlgo(){
+
+    let completion = { done : false };
+    while(!completion?.done 
+        && progress.current === "start" 
+        && !isComponentUnMounted.current
+    ){
+      completion = await josephProgressIterator.current?.next();
+    }
+    if(isComponentUnMounted.current) {
+      return;
+    }
+    if(!isAlgoExecutionOver.current && completion?.done){
+      isAlgoExecutionOver.current = true;
+      randomM.current = 0;
+      setHighlightIndice(-1);
+      setDequeueIndices([-1, -1]);
+      phaseDone();
+    } 
+    
+  }
 
   async function dequeue(idx, p){
     setDequeueIndices([idx, p]);
-    await dealy(deQueueTime);
+    await delay(deQueueTime);
   }
 
   async function highlight(p){
@@ -119,9 +123,10 @@ export const JosephManager = React.memo(function({
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
+
   const handleClick = (event) => {
-    var num = getRandomNumber(1, 6);
-    setRandomM(num);
+    randomM.current = getRandomNumber(1, 6);
+    console.log("m", randomM.current);
     setAnchorEl(event.currentTarget);
   };
 
@@ -154,7 +159,7 @@ export const JosephManager = React.memo(function({
           anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
           transformOrigin={{vertical: 'top', horizontal: 'center',}}
         >
-          {randomM}
+          {randomM.current}
         </Popover>
       </DiceBar>
       <JosephContainer
