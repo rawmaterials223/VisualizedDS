@@ -52,7 +52,7 @@ export const useControl= create(
     speed: 3,
     cycleTime: cycleTime,
     numberTotal: numberTotal,
-    randomM: 1,
+    randomM: 2,
     swapTime : swapTime,
     deQueueTime : deQueueTime,
     josephArray: [],

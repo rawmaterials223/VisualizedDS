@@ -49,7 +49,10 @@ export const JosephManager = React.memo(function({
   const [dequeueIndices, setDequeueIndices] = useState([-1,-1]);
   //出列元素
 
-  const randomM = useRef(0);
+  const [randomM, setRandomM] = useControl(
+    (state) => [state.randomM, state.setRandomM]
+  );
+
   const algoArray = useRef([]);
   const isAlgoExecutionOver = useRef(false);
   const isComponentUnMounted = useRef(false);
@@ -60,12 +63,15 @@ export const JosephManager = React.memo(function({
   
   async function reset(){
     algoArray.current = [...useControl.getState().josephArray];
-    randomM.current = 0;
     setHighlightIndice(-1);
     setDequeueIndices([-1, -1]);
     isAlgoExecutionOver.current = false;
     josephProgressIterator.current = 
-      await josephFunction(algoArray.current, randomM.current, highlight, dequeue);
+      await josephFunction(algoArray.current, 
+                            randomM, 
+                            handleClick, 
+                            highlight, 
+                            dequeue);
   }
 
   useEffect(() => {
@@ -104,7 +110,6 @@ export const JosephManager = React.memo(function({
     }
     if(!isAlgoExecutionOver.current && completion?.done){
       isAlgoExecutionOver.current = true;
-      randomM.current = 0;
       setHighlightIndice(-1);
       setDequeueIndices([-1, -1]);
       phaseDone();
@@ -115,19 +120,23 @@ export const JosephManager = React.memo(function({
   async function dequeue(idx, p){
     setDequeueIndices([idx, p]);
     await delay(deQueueTime);
+    console.log("dequeue", idx, "pos", p);
   }
 
   async function highlight(p){
     setHighlightIndice(p);
     await delay(deQueueTime);
+    console.log("highlight", p);
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    randomM.current = getRandomNumber(1, 6);
-    console.log("m", randomM.current);
+  const handleClick =   (event) => {
+    const num = getRandomNumber(1, 6);
+    setRandomM(num);
+    console.log("m", num);
     setAnchorEl(event.currentTarget);
+
   };
 
   const handleClose = () => {
@@ -159,7 +168,7 @@ export const JosephManager = React.memo(function({
           anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
           transformOrigin={{vertical: 'top', horizontal: 'center',}}
         >
-          {randomM.current}
+          {randomM}
         </Popover>
       </DiceBar>
       <JosephContainer

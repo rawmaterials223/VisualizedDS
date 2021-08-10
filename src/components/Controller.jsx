@@ -161,23 +161,26 @@ export function JosephController(){
 
   const [isPausing, setIsPausing] = useState(false);
 
-  const [progress, numberTotal, speed] = useControl(
-    (state) => [state.progress, state.numberTotal, state.speed], shallow
+  const [numberTotal, setNumberTotal] = useControl(
+    (state) => [state.numberTotal, state.setNumberTotal]
+  );
+
+  const [speed, setSpeed] = useControl(
+    (state) => [state.speed, state.setSpeed]
+  );
+  
+  const [progress] = useControl(
+    (state) => [state.progress]
   );
   
   const [josephArray, setJosephArray] = useControl(
-    (state) => [state.josephArray, state.setJosephArray],
-    shallow
+    (state) => [state.josephArray, state.setJosephArray]
   );
 
-  const [setNumberTotal, setSpeed] = useControl(
-    (state) => [state.setNumberTotal, state.setSpeed], shallow
-  );
-  
   const [numberInput, setNumberInput] = useState(numberTotal);
 
   const [phaseStart, phaseReset, phasePause] = useControl(
-    (state) => [state.phaseStart, state.phaseReset, state.phasePause], shallow
+    (state) => [state.phaseStart, state.phaseReset, state.phasePause]
   );
 
   const startElement = <PlayArrowOutlinedIcon onClick={phaseStart}/>;
@@ -195,12 +198,13 @@ export function JosephController(){
   function handleNumberTotal(value){
     const string = checkInputNumber(value);
     setNumberInput(string);
+    setNumberTotal(string);
 
-    const numberstring = convertArrayStringToArray(string);
-    setNumberTotal(numberstring);
+    console.log("input", string);
 
-    const array = getArray(numberTotal);
+    const array = getArray(string);
     setJosephArray(array);
+
     phaseReset();
   }
 
@@ -241,10 +245,10 @@ export function JosephController(){
         </Button>
         <TextField
           id="outlined-basic"
-          label="n range=[0,99]"
+          label="n range=[1,99]"
           variant="outlined"
           onChange={(event) => handleNumberTotal(event.target.value)}
-          value={numberInput}
+          value={numberTotal}
           size="small"
           width="100px"
           style={{ flexGrow: 1, margin: '0 10px' }}

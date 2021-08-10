@@ -16,7 +16,6 @@ export function convertArrayStringToArray(string) {
 }
 
 export function checkInputNumber(string){
-  string = string.replaceAll(/\s/g, "");
   string = string.replaceAll(/[^0-9]/g,"");
   string = string.replaceAll(/\d{3}/g, "");
   return string;
