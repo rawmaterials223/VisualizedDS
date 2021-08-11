@@ -10,12 +10,14 @@ export const comparisionColor = "pink";
 export const swapColor = "yellow";
 export const sortedColor = "springgreen";
 export const pivotColor = "sandybrown";
-export const dequeueColor = "pink";
+export const dequeueColor = "yellow";
+export const countColor = "pink";
 // time setting
 export let swapTime = 1000;
 export let compareTime = 500;
-export let cycleTime= 1000;
+
 export let deQueueTime = 1000;
+export let countTime = 500;
 
 // init settings
 export let numberTotal = 10;

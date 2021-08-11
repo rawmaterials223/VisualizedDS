@@ -123,10 +123,10 @@ export const dequeueAnimation = (distance, color) => keyframes`
     background-color: ${color};
   }
   99% {
-    transform: translate(-${distance * 50}px, 0px);
+    transform: translate(-${distance * 50}px, 100px);
     background-color: ${color};
   }
   100% {
-    transform: translate(-${distance * 50}px, 0px);
+    transform: translate(-${distance * 50}px, 100px);
   }
 `;

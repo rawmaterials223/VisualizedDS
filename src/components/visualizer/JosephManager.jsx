@@ -9,6 +9,7 @@ import { JosephContainer } from "./JosephContainer";
 import { delay, getRandomNumber } from "../../common/helper";
 
 let deQueueTime = useControl.getState().deQueueTime;
+let countTime = useControl.getState().countTime;
 
 useControl.subscribe(
   (dTime) => {
@@ -54,6 +55,7 @@ export const JosephManager = React.memo(function({
   );
 
   const algoArray = useRef([]);
+  const queueArray = useRef([]);
   const isAlgoExecutionOver = useRef(false);
   const isComponentUnMounted = useRef(false);
   const progress = useRef("");
@@ -63,11 +65,13 @@ export const JosephManager = React.memo(function({
   
   async function reset(){
     algoArray.current = [...useControl.getState().josephArray];
+    queueArray.current = [];
     setHighlightIndice(-1);
     setDequeueIndices([-1, -1]);
     isAlgoExecutionOver.current = false;
     josephProgressIterator.current = 
-      await josephFunction(algoArray.current, 
+      await josephFunction(algoArray.current,
+                            queueArray.current, 
                             randomM, 
                             handleClick, 
                             highlight, 
@@ -95,6 +99,7 @@ export const JosephManager = React.memo(function({
   }, [array]);  
 
   console.log("processIterator",josephProgressIterator.current);
+  //console.log("algoArray",algoArray.current);
 
   async function runAlgo(){
 
@@ -103,7 +108,10 @@ export const JosephManager = React.memo(function({
         && progress.current === "start" 
         && !isComponentUnMounted.current
     ){
+      setDequeueIndices([-1, -1]);
       completion = await josephProgressIterator.current?.next();
+      console.log("algoArray", algoArray.current);
+      console.log("queueArray", queueArray.current);
     }
     if(isComponentUnMounted.current) {
       return;
@@ -125,7 +133,7 @@ export const JosephManager = React.memo(function({
 
   async function highlight(p){
     setHighlightIndice(p);
-    await delay(deQueueTime);
+    await delay(countTime);
     console.log("highlight", p);
   }
 
@@ -172,7 +180,8 @@ export const JosephManager = React.memo(function({
         </Popover>
       </DiceBar>
       <JosephContainer
-        array={array}
+        josepharray={algoArray.current}
+        queuearray={queueArray.current}
         source={dequeueIndices[0]}
         destination={dequeueIndices[1]}
         highlightIndice={highlightIndice}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { dequeueColor } from "../../common/config";
+import { dequeueColor, countColor } from "../../common/config";
 import { useControl } from "../../common/store";
 
 let deQueueTime = useControl.getState().deQueueTime;
@@ -26,47 +26,71 @@ const MovedItem = styled(ArrayItem)`
 `;
 
 export function JosephContainer({
-  array,
+  josepharray,
+  queuearray,
   source,
   destination,
   highlightIndice,
 }) {
 
-  const [items, setItems] = useState([...array]);
+  console.log("src", source, "dest", destination);
+  console.log("queue", queuearray);
 
-  /*
-    useEffect(() => {
-    if (source !== -1 && destination !== -1) {
-      generateItems(setItems, source, destination);
-    }
-  }, [source, destination]);
-  */
-  useEffect(() => {
-    setItems([...array]);
-  }, [array]);
-
-  function getBackgroundColor(i){
-    if(highlightIndice.includes(i))
+  function getBackgroundColor(){
+    if(josepharray.includes(highlightIndice))
+      return countColor;
+    if(josepharray.includes(source))
       return dequeueColor;
     return "";
   }
 
   return(
     <div>
-    <ArrayHolder style={{height: "275px"}}>
-      {items.map((value, i) => {
-        return(
+      <ArrayHolder style={{height: "275px"}}>
+        {josepharray.map((value, i) => {
+          if(i === source){
+            return(
+              <AnimatedItem
+                key={i+":"+value}
+                distance={source-destination}
+                style={{order : i, backgroundColor: getBackgroundColor()}}
+              >
+                {value}
+              </AnimatedItem>
+            );
+          }
+          else if(i === highlightIndice){
+            return(
+              <ArrayItem
+                key={i+":"+value}
+                style={{order : i, backgroundColor: countColor}}
+              >
+                {value}
+              </ArrayItem>
+            );
+          }
+          return(
+            <ArrayItem
+              key={i+":"+value}
+              style={{order : i}}
+            >
+              {value}
+              </ArrayItem>
+            );
+            
+        })}
+
+      </ArrayHolder>
+      <ArrayHolder>
+        {queuearray.map((value, i) => {
           <ArrayItem
             key={i+":"+value}
             style={{order : i}}
           >
             {value}
           </ArrayItem>
-        );
-      })}
-
-    </ArrayHolder>
-
+        })}        
+      </ArrayHolder>
     </div>
   );
 }
