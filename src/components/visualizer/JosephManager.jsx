@@ -75,7 +75,8 @@ export const JosephManager = React.memo(function({
                             randomM, 
                             handleClick, 
                             highlight, 
-                            dequeue);
+                            dequeue,
+                            splice);
   }
 
   useEffect(() => {
@@ -122,7 +123,6 @@ export const JosephManager = React.memo(function({
       setDequeueIndices([-1, -1]);
       phaseDone();
     } 
-    
   }
 
   async function dequeue(idx, p){
@@ -137,9 +137,14 @@ export const JosephManager = React.memo(function({
     console.log("highlight", p);
   }
 
+  async function splice(array, idx){
+    array.splice(idx, 1);
+    await delay(deQueueTime);
+  }
+
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick =   (event) => {
+  const handleClick = (event) => {
     const num = getRandomNumber(1, 6);
     setRandomM(num);
     console.log("m", num);
@@ -155,39 +160,48 @@ export const JosephManager = React.memo(function({
   const id = open ? 'simple-popover' : undefined;
 
   return(
-    <Container>
-      <HeadBar>
-        <strong>n : {numberTotal}</strong>
-      </HeadBar>
-      <DiceBar>
-        <Button 
-          aria-describedby={id} 
-          variant="contained" 
-          color="primary" 
-          onClick={handleClick}
-        > 
-          DICE
-        </Button>
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
-          transformOrigin={{vertical: 'top', horizontal: 'center',}}
-        >
-          {randomM}
-        </Popover>
-      </DiceBar>
-      <JosephContainer
-        josepharray={algoArray.current}
-        queuearray={queueArray.current}
-        source={dequeueIndices[0]}
-        destination={dequeueIndices[1]}
-        highlightIndice={highlightIndice}
-      />
-    </Container>
-
+    <div>
+      <Container>
+        <HeadBar>
+          <strong>n : {numberTotal}</strong>
+        </HeadBar>
+        <DiceBar>
+          <Button 
+            aria-describedby={id} 
+            variant="contained" 
+            color="primary" 
+            onClick={handleClick}
+          > 
+            DICE
+          </Button>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+            transformOrigin={{vertical: 'top', horizontal: 'center',}}
+          >
+            {randomM}
+          </Popover>
+        </DiceBar>
+        <JosephContainer
+          array={algoArray.current}
+          source={dequeueIndices[0]}
+          destination={dequeueIndices[1]}
+          highlightIndice={highlightIndice}
+        />
+      </Container>
+      <Container>
+        <HeadBar><strong>dequeue sequence</strong></HeadBar>
+        <JosephContainer
+          array={queueArray.current}
+          source={-1}
+          destination={-1}
+          highlightIndice={dequeueIndices[1]}
+        />
+      </Container>
+    </div>
   ); 
 
 });

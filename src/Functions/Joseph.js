@@ -1,4 +1,4 @@
-export async function* JosephFunction(array, queue, m, handleClick, highlight, dequeue){
+export async function* JosephFunction(array, queue, m, handleClick, highlight, dequeue,splice){
   let idx = 0;
   let start = 0;
   let cnt = 0;
@@ -17,7 +17,8 @@ export async function* JosephFunction(array, queue, m, handleClick, highlight, d
     queue.push(array[idx]);
     //console.log("seq", queue);
     yield await dequeue(idx, cnt);
-    array.splice(idx, 1);   
+    yield await splice(array, idx);    //array.splice(idx, 1); 
+
     start = idx;   
     cnt++;
   }

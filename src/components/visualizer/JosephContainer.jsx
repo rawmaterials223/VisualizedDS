@@ -26,71 +26,74 @@ const MovedItem = styled(ArrayItem)`
 `;
 
 export function JosephContainer({
-  josepharray,
-  queuearray,
+  array,
   source,
   destination,
   highlightIndice,
 }) {
 
-  console.log("src", source, "dest", destination);
-  console.log("queue", queuearray);
+  const [items, setItems] = useState(array);
+
+  const generateItem = (setItems, source, destination) => {
+    setItems((items) => {
+      const newItems = [...items];
+
+     for(let i = source; i < destination; i++){
+       newItems[i] = newItems[i+1];
+     }
+
+     return newItems;
+    })
+  }
+
+  useEffect(() => {
+    if(source != -1)
+      generateItem(setItems, source, items.length-1);
+  }, [source])
+
+  useEffect(() => {
+    setItems(array);
+  }, [array]);
 
   function getBackgroundColor(){
-    if(josepharray.includes(highlightIndice))
+    if(array.includes(highlightIndice))
       return countColor;
-    if(josepharray.includes(source))
+    if(array.includes(source))
       return dequeueColor;
     return "";
   }
 
   return(
-    <div>
-      <ArrayHolder style={{height: "275px"}}>
-        {josepharray.map((value, i) => {
-          if(i === source){
-            return(
-              <AnimatedItem
-                key={i+":"+value}
-                distance={source-destination}
-                style={{order : i, backgroundColor: getBackgroundColor()}}
-              >
-                {value}
-              </AnimatedItem>
-            );
-          }
-          else if(i === highlightIndice){
-            return(
-              <ArrayItem
-                key={i+":"+value}
-                style={{order : i, backgroundColor: countColor}}
-              >
-                {value}
-              </ArrayItem>
-            );
-          }
+    <ArrayHolder>
+      {array.map((value, i) => {
+        if(i === source){
           return(
             <ArrayItem
               key={i+":"+value}
-              style={{order : i}}
+              distance={source-destination}
+              style={{order : i, backgroundColor: getBackgroundColor()}}
             >
               {value}
-              </ArrayItem>
-            );
-            
-        })}
-
-      </ArrayHolder>
-      <ArrayHolder>
-        {queuearray.map((value, i) => {
+            </ArrayItem>
+        );}
+        else if(i === highlightIndice){
+          return(
+            <ArrayItem
+              key={i+":"+value}
+              style={{order : i, backgroundColor: countColor}}
+            >
+              {value}
+            </ArrayItem>
+        );}
+        return(
           <ArrayItem
             key={i+":"+value}
             style={{order : i}}
           >
             {value}
           </ArrayItem>
-        })}        
-      </ArrayHolder>
-    </div>
+        );
+      })}
+    </ArrayHolder>
   );
 }
