@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-
+import { CircleContainer } from './visualizer/CircleContainer';
 export function RouteMenu(){
   return(
     <Router>
@@ -61,18 +61,25 @@ function Home(){
   });
 
   const classes = useStyles();
-
+/*
   return(
-    <Card className={classes.root}>
-       <CardContent>
-          <Typography className={classes.title}>
-              1952889 鲁灵伊
-          </Typography>
-          <Typography className={classes.title}>
-              数据结构课程设计
-          </Typography>
-       </CardContent>
-    </Card>
+    <div>
+      
+      <Card className={classes.root}>
+        <CardContent>
+            <Typography className={classes.title}>
+                1952889 鲁灵伊
+            </Typography>
+            <Typography className={classes.title}>
+                数据结构课程设计
+            </Typography>
+        </CardContent>
+      </Card>
+      
+    </div>
   );
-
+*/
+  return(
+    <CircleContainer/>
+  );
 }

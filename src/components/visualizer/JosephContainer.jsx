@@ -12,6 +12,7 @@ useControl.subscribe(
 import {
   ArrayHolder,
   ArrayItem,
+  CircleItem,
   dequeueAnimation,
   moveAnimation
 } from "../../common/styles";
@@ -68,30 +69,30 @@ export function JosephContainer({
       {array.map((value, i) => {
         if(i === source){
           return(
-            <ArrayItem
+            <CircleItem
               key={i+":"+value}
               distance={source-destination}
               style={{order : i, backgroundColor: getBackgroundColor()}}
             >
-              {value}
-            </ArrayItem>
+              <div style={{textAlign: "center"}}>{value}</div>
+            </CircleItem>
         );}
         else if(i === highlightIndice){
           return(
-            <ArrayItem
+            <CircleItem
               key={i+":"+value}
               style={{order : i, backgroundColor: countColor}}
             >
               {value}
-            </ArrayItem>
+            </CircleItem>
         );}
         return(
-          <ArrayItem
+          <CircleItem
             key={i+":"+value}
             style={{order : i}}
           >
             {value}
-          </ArrayItem>
+          </CircleItem>
         );
       })}
     </ArrayHolder>

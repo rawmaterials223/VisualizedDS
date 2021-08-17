@@ -72,8 +72,6 @@ export const JosephManager = React.memo(function({
     josephProgressIterator.current = 
       await josephFunction(algoArray.current,
                             queueArray.current, 
-                            randomM, 
-                            handleClick, 
                             highlight, 
                             dequeue,
                             splice);
@@ -139,7 +137,13 @@ export const JosephManager = React.memo(function({
 
   async function splice(array, idx){
     array.splice(idx, 1);
-    await delay(deQueueTime);
+    await delay(500);
+  }
+
+  async function random(){
+    var num = getRandomNumber(1, 6);
+    await delay(500);
+    //顺时针方向围坐一圈，css调整为圆圈，适配界面大小
   }
 
   const [anchorEl, setAnchorEl] = useState(null);

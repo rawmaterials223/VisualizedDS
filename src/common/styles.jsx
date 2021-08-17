@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import Button from '@material-ui/core/Button';
 
 export const ArrayHolder = styled.div`
   display: flex;
@@ -18,6 +19,17 @@ export const ArrayItem = styled.div`
   box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   flex-shrink: 0;
+`;
+
+export const CircleItem = styled(Button)`
+  display: flex;
+  justift-content: center;
+  aligh-items: center;
+  align-content: center;
+  border: 2px solid black;
+  width: 30px;
+  height: 45px;
+  border-radius: 60%;
 `;
 
 export const swapAnimation = (distance, swapColor) => keyframes`
