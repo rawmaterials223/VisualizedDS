@@ -191,6 +191,7 @@ export const JosephManager = React.memo(function({
         </DiceBar>
         <JosephContainer
           array={algoArray.current}
+          id={"algoArray"}
           source={dequeueIndices[0]}
           destination={dequeueIndices[1]}
           highlightIndice={highlightIndice}
@@ -200,6 +201,7 @@ export const JosephManager = React.memo(function({
         <HeadBar><strong>dequeue sequence</strong></HeadBar>
         <JosephContainer
           array={queueArray.current}
+          id={"queueArray"}
           source={-1}
           destination={-1}
           highlightIndice={dequeueIndices[1]}

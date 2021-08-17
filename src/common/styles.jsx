@@ -27,9 +27,12 @@ export const CircleItem = styled(Button)`
   aligh-items: center;
   align-content: center;
   border: 2px solid black;
-  width: 30px;
-  height: 45px;
-  border-radius: 60%;
+  width: 20px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-right: 5px;
+  position: absolute;
 `;
 
 export const swapAnimation = (distance, swapColor) => keyframes`
