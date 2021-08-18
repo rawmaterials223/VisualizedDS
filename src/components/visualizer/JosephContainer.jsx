@@ -59,25 +59,29 @@ export function JosephContainer({
 
   if(id === 'algoArray'){
     return(
-      <ArrayHolder>
+      <div>
         {array.map((value, i) => {
-          if(array.length < 50)
-            var radius = 250;
-          else if(array.length < 100)
+          if(array.length < 10)
+            var radius = 100;
+          else if(array.length < 25)
+            var radius = 200;
+          else if(array.length < 50)
             var radius = 300;
-          else
+          else if(array.length < 100)
             var radius = 350;
           var angle = ((i - 1)/ (array.length / 2)) * Math.PI;
           var width = (radius * 2) + 50;
-          var x = (radius * Math.cos(angle)) + (width / 2) + (400 - radius);
-          var y = (radius * Math.sin(angle)) + (width / 2) + (400 - radius);
+          var x = (radius * Math.cos(angle)) + (width / 2) + (450 - radius);
+          var y = (radius * Math.sin(angle)) + (width / 2) + (450 - radius) + 50;
           if(i === source){
             return(
-              <CircleItem
+              <CircleItem 
                 key={i+":"+value}
                 distance={source-destination}
-                style={{order : i, 
+                style={{
+                  order : i, 
                   backgroundColor: dequeueColor, 
+                  position: "absolute",
                   left: x, 
                   top: y}}
               >
@@ -88,8 +92,10 @@ export function JosephContainer({
             return(
               <CircleItem
                 key={i+":"+value}
-                style={{order : i, 
+                style={{
+                  order : i, 
                   backgroundColor: countColor,
+                  position: "absolute",
                   left: x,
                   top: y}}
               >
@@ -99,13 +105,17 @@ export function JosephContainer({
           return(
             <CircleItem
               key={i+":"+value}
-              style={{order : i, left:x, top: y}}
+              style={{
+                order : i, 
+                position: "absolute", 
+                left: x, 
+                top: y}}
             >
               {value}
             </CircleItem>
           );
         })}
-      </ArrayHolder>
+      </div>
     );
   }
   else if(id === "queueArray"){

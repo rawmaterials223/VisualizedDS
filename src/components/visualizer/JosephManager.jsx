@@ -1,21 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDice from 'react-dice-complete';
 import styled from "styled-components";
-import Button from "@material-ui/core/Button";
-import Popover from '@material-ui/core/Popover';
 import Card from "@material-ui/core/Card";
 import shallow from "zustand/shallow";
 import { useControl } from "../../common/store";
 import { JosephContainer } from "./JosephContainer";
 import { delay, getRandomNumber } from "../../common/helper";
+import 'react-dice-complete/dist/react-dice-complete.css';
 
 let deQueueTime = useControl.getState().deQueueTime;
 let countTime = useControl.getState().countTime;
 
 useControl.subscribe(
-  (dTime) => {
+  (dTime, cTime) => {
     deQueueTime = dTime;
+    countTime = cTime;
   },
-  (state) => state.deQueueTime,
+  (state) => [state.deQueueTime, state.countTime],
   shallow
 );
 
@@ -35,8 +36,35 @@ const DiceBar = styled.div`
   display:flex;
   justify-content: space-between;
   aligh-items: center;
-  
 `;
+
+class Dice extends React.Component {
+
+  render() {
+    return (
+      <div>
+        <ReactDice
+          numDice={1}
+          rollDone={this.rollDoneCallback}
+          defaultRoll={1}
+          rollTime={2}
+          dotColor={"#ffffff"}
+          faceColor={"#1e1e1d"}
+          ref={dice => this.reactDice = dice}
+          
+        />
+      </div>
+    )
+  }
+
+  rollAll() {
+    this.reactDice.rollAll()
+  }
+
+  rollDoneCallback(num) {
+    console.log(`You rolled a ${num}`)
+  }
+}
 
 export const JosephManager = React.memo(function({
   array,
@@ -53,7 +81,7 @@ export const JosephManager = React.memo(function({
   const [randomM, setRandomM] = useControl(
     (state) => [state.randomM, state.setRandomM]
   );
-
+  
   const algoArray = useRef([]);
   const queueArray = useRef([]);
   const isAlgoExecutionOver = useRef(false);
@@ -66,12 +94,14 @@ export const JosephManager = React.memo(function({
   async function reset(){
     algoArray.current = [...useControl.getState().josephArray];
     queueArray.current = [];
+    setRandomM(0);
     setHighlightIndice(-1);
     setDequeueIndices([-1, -1]);
     isAlgoExecutionOver.current = false;
     josephProgressIterator.current = 
       await josephFunction(algoArray.current,
                             queueArray.current, 
+                            random,
                             highlight, 
                             dequeue,
                             splice);
@@ -98,7 +128,6 @@ export const JosephManager = React.memo(function({
   }, [array]);  
 
   console.log("processIterator",josephProgressIterator.current);
-  //console.log("algoArray",algoArray.current);
 
   async function runAlgo(){
 
@@ -130,64 +159,29 @@ export const JosephManager = React.memo(function({
   }
 
   async function highlight(p){
-    setHighlightIndice(p);
     await delay(countTime);
+  
+    setHighlightIndice(p);
     console.log("highlight", p);
   }
 
   async function splice(array, idx){
     array.splice(idx, 1);
-    await delay(500);
+    await delay(deQueueTime);
   }
 
-  async function random(){
-    var num = getRandomNumber(1, 6);
-    await delay(500);
-    //顺时针方向围坐一圈，css调整为圆圈，适配界面大小
+  async function random(m){
+    setRandomM(m);  
   }
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    const num = getRandomNumber(1, 6);
-    setRandomM(num);
-    console.log("m", num);
-    setAnchorEl(event.currentTarget);
-
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
 
   return(
     <div>
-      <Container>
+      <Container style={{marginBottom: "50px"}}>
         <HeadBar>
           <strong>n : {numberTotal}</strong>
         </HeadBar>
         <DiceBar>
-          <Button 
-            aria-describedby={id} 
-            variant="contained" 
-            color="primary" 
-            onClick={handleClick}
-          > 
-            DICE
-          </Button>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
-            transformOrigin={{vertical: 'top', horizontal: 'center',}}
-          >
-            {randomM}
-          </Popover>
+          <strong>random number : {randomM}</strong>
         </DiceBar>
         <JosephContainer
           array={algoArray.current}
@@ -197,7 +191,7 @@ export const JosephManager = React.memo(function({
           highlightIndice={highlightIndice}
         />
       </Container>
-      <Container>
+      <Container style={{marginTop: "50px"}}>
         <HeadBar><strong>dequeue sequence</strong></HeadBar>
         <JosephContainer
           array={queueArray.current}

@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 
 export const ArrayHolder = styled.div`
   display: flex;
@@ -21,18 +21,17 @@ export const ArrayItem = styled.div`
   flex-shrink: 0;
 `;
 
-export const CircleItem = styled(Button)`
-  display: flex;
-  justift-content: center;
+export const CircleItem = styled(Card)`
+  display:flex;
+  justify-content: center;
   aligh-items: center;
   align-content: center;
   border: 2px solid black;
-  width: 20px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  margin-left: 5px;
-  margin-right: 5px;
-  position: absolute;
+  margin-left: 3px;
+  margin-right: 3px;
 `;
 
 export const swapAnimation = (distance, swapColor) => keyframes`

@@ -15,6 +15,7 @@
     "@material-ui/icons": "^4.11.2",
     "prop-types": "^15.7.2",
     "react": "latest",
+    "react-dice-complete": "^1.2.1",
     "react-dom": "latest",
     "react-router-dom": "^5.2.0",
     "react-scripts": "latest",
