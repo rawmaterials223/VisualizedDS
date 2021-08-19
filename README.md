@@ -10,7 +10,7 @@ This is the course of data structure design of Tongji Univeristy in the summer s
 
 ## How to run in local 怎样运行？
 
-- 该程序由[React](https://react.docschina.org/)三大前端框架之一搭建
+- 该程序由[React](https://react.docschina.org/)框架搭建
 - 先保证下载[Node.js](https://nodejs.org/zh-cn/) **v14.17.3**
 
 
@@ -21,7 +21,7 @@ npm start
 ```
 
 ## Technologies? 使用哪些工具？
-- [React](https://github.com/facebook/react)
+- [React](https://github.com/facebook/react) 三大前端框架之一(Vue, Angular)
 - [Material-UI](https://material-ui.com/zh/) 当下流行的React UI框架
 - [styled-components](https://www.w3cschool.cn/styledcomponents/) css-in-js，在React中绑定css样式到组件
 - [Zustand](https://github.com/pmndrs/zustand) hooks based state management library 状态管理工具
