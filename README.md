@@ -2,7 +2,7 @@
 
 ## What is it? 是什么？
 
-This is the course of data structure design of Tongji Univeristy in the summer semester. It can realize the visualization of [Sort] and [Joseph]. 
+This is the course of data structure design of Tongji Univeristy in the summer semester. It can realize the visualization of **Sort** and **Joseph**. 
 
 这是同济大学大二暑期实践周数据结构课程设计的成品。
 - 几种排序。直接插入排序、折半插入排序、希尔排序、冒泡排序、快速排序、简单选择排序。
@@ -10,8 +10,8 @@ This is the course of data structure design of Tongji Univeristy in the summer s
 
 ## How to run in local 怎样运行？
 
-- 该程序由[create-react-app]框架搭建
-- 先保证下载[Node.js](https://nodejs.org/zh-cn/) [v14.17.3]
+- 该程序由[React](https://react.docschina.org/)三大前端框架之一搭建
+- 先保证下载[Node.js](https://nodejs.org/zh-cn/) **v14.17.3**
 
 
 ```sh
@@ -24,4 +24,4 @@ npm start
 - [React](https://github.com/facebook/react)
 - [Material-UI](https://material-ui.com/zh/) 当下流行的React UI框架
 - [styled-components](https://www.w3cschool.cn/styledcomponents/) css-in-js，在React中绑定css样式到组件
-- [Zustand](https://github.com/pmndrs/zustand) hooks based state management library
+- [Zustand](https://github.com/pmndrs/zustand) hooks based state management library 状态管理工具
