@@ -5,7 +5,7 @@ import Card from "@material-ui/core/Card";
 import shallow from "zustand/shallow";
 import { useControl } from "../../common/store";
 import { JosephContainer } from "./JosephContainer";
-import { delay, getRandomNumber } from "../../common/helper";
+import { delay } from "../../common/helper";
 import 'react-dice-complete/dist/react-dice-complete.css';
 
 let deQueueTime = useControl.getState().deQueueTime;
@@ -127,7 +127,7 @@ export const JosephManager = React.memo(function({
     reset();
   }, [array]);  
 
-  console.log("processIterator",josephProgressIterator.current);
+  //console.log("processIterator",josephProgressIterator.current);
 
   async function runAlgo(){
 
@@ -155,14 +155,14 @@ export const JosephManager = React.memo(function({
   async function dequeue(idx, p){
     setDequeueIndices([idx, p]);
     await delay(deQueueTime);
-    console.log("dequeue", idx, "pos", p);
+    //console.log("dequeue", idx, "pos", p);
   }
 
   async function highlight(p){
     await delay(countTime);
   
     setHighlightIndice(p);
-    console.log("highlight", p);
+    //console.log("highlight", p);
   }
 
   async function splice(array, idx){
@@ -174,6 +174,26 @@ export const JosephManager = React.memo(function({
     setRandomM(m);  
   }
 
+  const arrayContainer = (
+    <JosephContainer
+      array={algoArray.current}
+      id={"algoArray"}
+      source={dequeueIndices[0]}
+      destination={dequeueIndices[1]}
+      highlightIndice={highlightIndice}
+    />
+  );
+
+  const queueContainer = (
+    <JosephContainer
+      array={queueArray.current}
+      id={"queueArray"}
+      source={-1}
+      destination={-1}
+      highlightIndice={dequeueIndices[1]}
+    />
+  );
+
   return(
     <div>
       <Container style={{marginBottom: "50px"}}>
@@ -183,23 +203,11 @@ export const JosephManager = React.memo(function({
         <DiceBar>
           <strong>random number : {randomM}</strong>
         </DiceBar>
-        <JosephContainer
-          array={algoArray.current}
-          id={"algoArray"}
-          source={dequeueIndices[0]}
-          destination={dequeueIndices[1]}
-          highlightIndice={highlightIndice}
-        />
+        {arrayContainer}
       </Container>
       <Container style={{marginTop: "50px"}}>
         <HeadBar><strong>dequeue sequence</strong></HeadBar>
-        <JosephContainer
-          array={queueArray.current}
-          id={"queueArray"}
-          source={-1}
-          destination={-1}
-          highlightIndice={dequeueIndices[1]}
-        />
+        {queueContainer}
       </Container>
     </div>
   ); 

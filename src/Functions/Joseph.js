@@ -1,4 +1,4 @@
-import { getRandomNumber } from "../common/helper";
+import { generateRandomNumberInRange } from "../common/helper";
 
 export async function* JosephFunction(array, queue, random, highlight, dequeue, splice){
   let idx = 0;
@@ -6,7 +6,7 @@ export async function* JosephFunction(array, queue, random, highlight, dequeue, 
   let cnt = 0;
   //传址，数组原值变动
   while(array.length > 1){
-    var m = getRandomNumber(1, 6);
+    var m = generateRandomNumberInRange(1, 6);
     yield await random(m);
 
     console.log("step", cnt);

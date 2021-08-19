@@ -33,11 +33,8 @@ export function delay(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-function generateRandomNumberInRange(lowerLimit = 0, upperLimit = 99) {
-  return lowerLimit + Math.floor(Math.random() * upperLimit);
-}
-
-export function getRandomNumber(lowerLimit = 0, upperLimit = 100){
+export function generateRandomNumberInRange(lowerLimit = 0, upperLimit = 99) {
+  //Math.floor(Math.random()*upperLimit) -> [0, upperLimit - 1]
   return lowerLimit + Math.floor(Math.random() * upperLimit);
 }
 

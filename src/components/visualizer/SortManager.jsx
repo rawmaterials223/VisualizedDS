@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Card from "@material-ui/core/Card";
 import shallow from "zustand/shallow";
 import { ArrayContainer } from "./ArrayContainer";
-import { MergeContainer } from "./MergeContainer";
 import { Timer } from "./Timer";
 import { delay } from "../../common/helper";
 import { useControls, useData } from "../../common/store";
@@ -156,15 +155,6 @@ export const SortManager = React.memo(function ({
     sortedIndices.current.push(...indices);
   }
 
-  const mergeContainer = (
-    <MergeContainer
-      array={algoArray.current}
-      source={swapIndices[0]}
-      destination={swapIndices[1]}
-      hightlightedIndices={hightlightedIndices}
-      sortedIndices={sortedIndices.current}
-    />
-  );
   const arrayContainer = (
     <ArrayContainer
       array={algoArray.current}
@@ -189,7 +179,7 @@ export const SortManager = React.memo(function ({
           </strong>
         </TimerDiv>
       </AlgoHeaderBar>
-      {sortingAlgorithmName === "MergeSort" ? mergeContainer : arrayContainer}
+      {arrayContainer}
       <InfoFooter>
         <div>Swaps: <strong>{swapCount.current}</strong></div>
         <div>Comparison: <strong>{comparisionCount.current}</strong></div>

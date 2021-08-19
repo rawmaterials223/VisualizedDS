@@ -15,8 +15,8 @@ import { useControls, useData, useControl } from "../common/store";
 import {
   convertInputToArrayString,
   convertArrayStringToArray,
+  generateRandomNumberInRange,
   getRandomArray,
-  getRandomNumber,
   checkInputNumber,
   getArray
 } from "../common/helper";
@@ -191,7 +191,7 @@ export function JosephController(){
   async function pauseAndDelay(){
     phasePause();
     setIsPausing(true);
-    await delay(useControl.getState().swapTime);
+    await delay(useControl.getState().deQueueTime);
     setIsPausing(false);
   }
 
@@ -209,7 +209,7 @@ export function JosephController(){
   }
 
   function generate(){
-    const randomN = getRandomNumber();
+    const randomN = generateRandomNumberInRange(1, 99);
     setNumberInput(randomN);
     setNumberTotal(randomN);
     
