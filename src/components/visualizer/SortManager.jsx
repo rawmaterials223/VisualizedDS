@@ -73,10 +73,8 @@ export const SortManager = React.memo(function ({
     setSwapIndices([-1, -1]);
     setHightlightedIndices([-1, -1]);
 
-    sortProgressIterator.current =
-      sortingAlgorithmName === "MergeSort"
-        ? await sortFunction(algoArray.current, combine, highlight, markSort)
-        : await sortFunction(algoArray.current, swap, highlight, markSort);
+    sortProgressIterator.current = 
+      await sortFunction(algoArray.current, swap, highlight, markSort);
   }
 
   useEffect(() => {
@@ -132,15 +130,6 @@ export const SortManager = React.memo(function ({
     pivot.current = -1;
     swapCount.current += 1;
     await delay(swapTime);
-  }
-
-  async function combine(source, destination) {
-    if (source !== destination) {
-      swapCount.current += 1;
-      setHightlightedIndices([-1, -1]);
-      setSwapIndices([source, destination]);
-      await delay(swapTime);
-    }
   }
 
   async function highlight(indices, p) {

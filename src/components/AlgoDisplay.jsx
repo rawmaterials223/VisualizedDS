@@ -87,12 +87,10 @@ export function SortAlgoDisplay() {
 }
 
 export function JosephAlgoDisplay(){
-  const [numberTotal, phaseReset] = useControl(
-    (state) => [state.numberTotal, state.phaseReset]);
-  
-  const josephArray = useControl((state) => state.josephArray);
-  
-  React.useEffect(() => {
+  const [numberTotal, josephArray, phaseReset] = useControl(
+    (state) => [state.numberTotal, state.josephArray, state.phaseReset]);
+    
+  useEffect(() => {
     phaseReset();
   }, [josephArray]);
 

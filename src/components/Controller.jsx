@@ -248,7 +248,7 @@ export function JosephController(){
           label="n range=[1,99]"
           variant="outlined"
           onChange={(event) => handleNumberTotal(event.target.value)}
-          value={numberTotal}
+          value={numberInput}
           size="small"
           width="100px"
           style={{ flexGrow: 1, margin: '0 10px' }}
