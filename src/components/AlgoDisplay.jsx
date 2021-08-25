@@ -55,7 +55,7 @@ export function SortAlgoDisplay() {
   if (sortingArray.length === 0)
     return (
       <h3 style={flexCenter}>
-        Please fill in the blank or push the generate button!
+        Please fill in the blank or push the left button!
       </h3>
     );
 
@@ -90,14 +90,17 @@ export function JosephAlgoDisplay(){
   const [numberTotal, josephArray, phaseReset] = useControl(
     (state) => [state.numberTotal, state.josephArray, state.phaseReset]);
     
+  console.log("n", numberTotal);
+
   useEffect(() => {
     phaseReset();
-  }, [josephArray]);
+  }, [numberTotal]);
 
-  if(josephArray.length === 0){
+  if(numberTotal === NaN){
+    console.log("n为null");
     return(
       <h3 style={flexCenter}>
-        Please fill in the blank or push the generate button!
+        Please fill in the blank or push the left button!
       </h3>
     );
   }

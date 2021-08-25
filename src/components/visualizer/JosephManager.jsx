@@ -125,7 +125,7 @@ export const JosephManager = React.memo(function({
 
   useEffect(() => {
     reset();
-  }, [array]);  
+  }, [numberTotal]);  
 
   //console.log("processIterator",josephProgressIterator.current);
 

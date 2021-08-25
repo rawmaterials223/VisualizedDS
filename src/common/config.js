@@ -24,12 +24,12 @@ export let numberTotal = 10;
 export let sortingArray = initArrayForScreenSize();
 
 export const sortingAlgorithms = [
-  { component: InsertionSort, title: "Straight Insertion", name: "InsertionSort" },
-  { component: BInsertionSort, title: "Binary Insertion", name: "BInsertionSort" },
-  { component: ShellSort, title: "Shell", name: "ShellSort" },
-  { component: BubbleSort, title: "Bubble", name: "BubbleSort" },
-  { component: QuickSort, title: "Quick", name: "QuickSort" },
-  { component: SelectionSort, title: "Selection", name: "SelectionSort" },
+  { component: InsertionSort, title: "直接插入排序", name: "InsertionSort" },
+  { component: BInsertionSort, title: "折半插入排序", name: "BInsertionSort" },
+  { component: ShellSort, title: "希尔排序", name: "ShellSort" },
+  { component: BubbleSort, title: "冒泡排序", name: "BubbleSort" },
+  { component: QuickSort, title: "快速排序", name: "QuickSort" },
+  { component: SelectionSort, title: "简单选择排序", name: "SelectionSort" },
 ];
 
 function initArrayForScreenSize() {

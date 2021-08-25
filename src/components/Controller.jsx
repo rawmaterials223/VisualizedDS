@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
 import PauseCircleOutlineOutlinedIcon from '@material-ui/icons/PauseCircleOutlineOutlined';
 import ReplayOutlinedIcon from '@material-ui/icons/ReplayOutlined';
-
 import Slider from "@material-ui/core/Slider";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { delay } from "../common/helper";
-
 import shallow from "zustand/shallow";
 import { useControls, useData, useControl } from "../common/store";
 import {
@@ -122,7 +119,7 @@ export function SortController() {
           color="primary"
           onClick={generate}
         >
-          Generate
+          随机
         </Button>
         <TextField
           id="outlined-basic"
@@ -241,7 +238,7 @@ export function JosephController(){
           color="primary"
           onClick={generate}
         >
-          Generate
+          随机
         </Button>
         <TextField
           id="outlined-basic"

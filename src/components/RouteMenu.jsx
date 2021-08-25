@@ -20,13 +20,13 @@ export function RouteMenu(){
         <nav>
           <ul>
             <li>
-                <Link component={RouterLink} to="/">Home</Link>
+                <Link component={RouterLink} to="/">首页Home</Link>
             </li>
             <li>
-                <Link component={RouterLink} to="/Sort">Sort</Link>
+                <Link component={RouterLink} to="/Sort">算法Sort</Link>
             </li>
             <li>
-                <Link component={RouterLink} to="/Joseph">Joseph</Link>
+                <Link component={RouterLink} to="/Joseph">综合Joseph</Link>
             </li>
           </ul>
         </nav>
@@ -67,11 +67,24 @@ function Home(){
       <Card className={classes.root}>
         <CardContent>
             <Typography className={classes.title}>
-                1952889 鲁灵伊
+              1952889 鲁灵伊
             </Typography>
             <Typography className={classes.title}>
-                数据结构课程设计
+              数据结构课程设计
             </Typography>
+            <Typography className={classes.title}>
+              算法实现设计：几种排序：要求随机输入一组数据，随时给出某一趟排序的变化情况
+              (1)	直接插入排序、折半插入排序、希尔排序；
+              (2)	冒泡排序、快速排序；
+              (3)	简单选择排序；
+            </Typography>
+            <Typography className={classes.title}>
+              综合应用设计：编号是1，2，……，n的n个人按照顺时针方向围坐一圈扔骰子（1-6），先选取一个人扔，按照扔的数字m，从扔骰子的人开始从1沿顺时针方向顺序报数，报到m时停止报数，报m的人出列，然后从他在顺时针方向的下一个人扔骰子，扔完后从1开始报数，如此，直到剩下一个人胜出。设计一个程序模拟这一过程。
+              (1)	通过输入框输入1，2，……，n个人。
+              (2)	模拟整个游戏过程。
+              (3)	按照出列的顺序输出各个人的编号。
+
+            </Typography>            
         </CardContent>
       </Card>
     </div>

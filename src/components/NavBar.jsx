@@ -6,7 +6,6 @@ import Tab from "@material-ui/core/Tab";
 import { sortingAlgorithms } from "../common/config";
 import { useData } from "../common/store";
 import shallow from "zustand/shallow";
-import { VerticalAlignTopOutlined } from "@material-ui/icons";
 
 function a11yProps(index) {
   return {
@@ -50,7 +49,7 @@ export function SortNavBar() {
               key={algorithm.title}
             />
           ))}
-          <Tab label="All" {...a11yProps(6)} />
+          <Tab label="所有排序" {...a11yProps(6)} />
         </Tabs>
       </AppBar>
     </div>
@@ -79,5 +78,4 @@ export function JosephNavBar(){
       </AppBar>
     </div>
   );
-
 }
